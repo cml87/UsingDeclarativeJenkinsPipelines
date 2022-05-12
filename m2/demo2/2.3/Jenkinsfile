@@ -5,12 +5,25 @@ pipeline {
     }
     stages {
         stage('Build') {
-            agent any
             environment {
                 LOG_LEVEL='INFO'
             }
-            steps {
-                echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+            parallel {
+                stage('linux-arm64') {
+                    steps {
+                        echo "Building release ${RELEASE} for ${STAGE_NAME} with log level ${LOG_LEVEL}..."
+                    }
+                }
+                stage('linux-amd64') {
+                    steps {
+                        echo "Building release ${RELEASE} for ${STAGE_NAME} with log level ${LOG_LEVEL}..."
+                    }
+                }
+                stage('windows-amd64') {
+                    steps {
+                        echo "Building release ${RELEASE} for ${STAGE_NAME} with log level ${LOG_LEVEL}..."
+                    }
+                }
             }
         }
         stage('Test') {
@@ -29,16 +42,7 @@ pipeline {
             steps {
                 echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
             }
-        }
-
-        stage ('Hello') {
-            steps {
-              echo "This was the release $RELEASE"
-              //echo "The target environment is: " + "$TARGET_ENVIRONMENT"
-
-            }
-        }
-
+        }        
     }
     post{
         always {
