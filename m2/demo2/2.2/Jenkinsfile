@@ -29,7 +29,14 @@ pipeline {
             steps {
                 echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
             }
-        }        
+        }
+
+        stage ('Hello') {
+            steps {
+              echo "This was the release $RELEASE"
+            }
+        }
+                 
     }
     post{
         always {

@@ -103,3 +103,55 @@ pipeline {
 }
 ```
 Notice that the environment variables are accessed without the <code>env.</code>.
+
+## Interactive pipeline
+We ask for user input in a pipeline with the <code>input</code> step. With it, we pause the build and wait for some sort of user confirmation.
+
+```groovy
+pipeline {
+    agent any
+    environment {
+        RELEASE='20.04'
+    }
+    stages {
+        stage('Build') {
+            agent any
+            environment {
+                LOG_LEVEL='INFO'
+            }
+            steps {
+                echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing release ${RELEASE}..."
+            }
+        }
+        stage('Deploy') {
+            input {
+                message 'Deploy?'
+                ok 'Do it!'
+                parameters {
+                    string(name: 'TARGET_ENVIRONMENT', defaultValue: 'PROD', description: 'Target deployment environment')
+                }
+            }
+            steps {
+                echo "Deploying release ${RELEASE} to environment ${TARGET_ENVIRONMENT}"
+            }
+        }
+        stage ('Hello') {
+            steps {
+              echo "This was the release $RELEASE"
+            }
+        }       
+    }
+    post{
+        always {
+             echo 'Prints whether deploy happened or not, success or failure'
+        }
+    }
+}
+```
+Notice how what the user will write in the dialog will be captured in the variable <code>TARGET_ENVIRONMENT</code>, which we then use in the steps block of the same stage.
+If we click in Abort, the steps block of the stage with the input block will not be executed, and the whole pipeline will be "Aborted". However, the post step will still be run, so we put on it any notification or clean up job.
