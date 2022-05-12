@@ -77,8 +77,28 @@ All these will send "This is a demo" to the standard output, ie. the value of VA
 Notice the difference between "environment variables" and Groovy variables.
 But I need to understand what the <code>sh</code> step does.
 
-Start of (2) 7.45
-
-
+Blocks agent and environment can be at the pipeline level or a a stage level. In at the stage level, will be limited to that stage.
+```groovy
+pipeline {
+    agent any
+    environment {
+        RELEASE='20.04'
+    }
+    stages {
+        stage('Build') {
+            agent any
+            environment {
+                LOG_LEVEL='INFO'
+            }
+            steps {
+                echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+            }
+        }
+        stage('Test') {
+            steps {
+                echo "Testing. I can see release ${RELEASE}, but not log level ${LOG_LEVEL}"
+            }
+        }
+    }
+}
 ```
-      sh "this is variable interpolation: $NAME"
