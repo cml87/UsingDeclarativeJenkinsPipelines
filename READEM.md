@@ -102,3 +102,4 @@ pipeline {
     }
 }
 ```
+Notice that the environment variables are accessed without the <code>env.</code>.
