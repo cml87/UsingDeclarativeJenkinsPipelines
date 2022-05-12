@@ -156,7 +156,8 @@ pipeline {
 }
 ```
 Notice how what the user will write in the dialog will be captured in the variable <code>TARGET_ENVIRONMENT</code>, which we then use in the steps block of the same stage. This variable will not be visible in other stages.
-If we click in Abort, the steps block of the stage with the input block will not be executed, and the whole pipeline will be "Aborted" skipping the rest of the stages it may have. However, the post step will still be run, so we can put on it any notification or clean up job. In the example, we run the post block <code>always</code>, ie. <u>whatever</u> the outcome of the pipeline is (FAILURE, SUCCESS etc).
+
+If we click in Abort, the steps block of the stage with the input block will not be executed, and the whole pipeline will be "Aborted". The rest of the stages it may have will be skipped. However, the post step will still be run, so we can put on it any notification or clean up job. In the example, we run the post block <code>always</code>, ie. <u>whatever</u> the outcome of the pipeline is (FAILURE, SUCCESS etc).
 
 ## Running stages in parallel
 
