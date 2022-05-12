@@ -96,13 +96,14 @@ pipeline {
         }
         stage('Test') {
             steps {
+                echo "This is stage: $STAGE_NAME"
                 echo "Testing. I can see release ${RELEASE}, but not log level ${LOG_LEVEL}"
             }
         }
     }
 }
 ```
-Notice that the environment variables are accessed without the <code>env.</code>.
+Notice that the environment variables are accessed without the <code>env.</code>. Notice also that inside a given stage, the name of the stage can be accessed through the environment variable <code>STAGE_NAME</code>.
 
 ## Interactive pipeline
 We ask for user input in a pipeline with the <code>input</code> step. With it, we pause the build and wait for some sort of user confirmation.
@@ -156,3 +157,7 @@ pipeline {
 ```
 Notice how what the user will write in the dialog will be captured in the variable <code>TARGET_ENVIRONMENT</code>, which we then use in the steps block of the same stage. This variable will not be visible in other stages.
 If we click in Abort, the steps block of the stage with the input block will not be executed, and the whole pipeline will be "Aborted" skipping the rest of the stages it may have. However, the post step will still be run, so we can put on it any notification or clean up job. In the example, we run the post block <code>always</code>, ie. <u>whatever</u> the outcome of the pipeline is (FAILURE, SUCCESS etc).
+
+## Running stages in parallel
+
+(2) 5.35 di 7:45
