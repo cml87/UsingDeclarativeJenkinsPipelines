@@ -34,9 +34,11 @@ pipeline {
         stage ('Hello') {
             steps {
               echo "This was the release $RELEASE"
+              echo "The target environment is: " + "$TARGET_ENVIRONMENT"
+
             }
         }
-                 
+
     }
     post{
         always {
