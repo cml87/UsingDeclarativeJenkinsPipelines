@@ -1,5 +1,5 @@
 pipeline {
-   agent any
+    agent any
     environment {
       RELEASE='20.04'
     }
@@ -15,7 +15,11 @@ pipeline {
         stage('Test') {
             steps {
                echo "Testing release ${RELEASE}"
-               writeFile file: 'test-results.txt', text: 'passed'               
+               String fileContent;
+               fileContent = "This is the content I want to write in the file.\n" +
+                             "It is a very important content as you can see."  
+               
+               writeFile file: 'test-results.txt', text: "$fileContent"               
             }
         }
    }
