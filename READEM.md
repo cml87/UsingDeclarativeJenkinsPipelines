@@ -157,16 +157,20 @@ pipeline {
 ```
 Notice how what the user will write in the dialog will be captured in the variable <code>TARGET_ENVIRONMENT</code>, which we then use in the steps block of the same stage. This variable will not be visible in other stages. Notice also that in this case we don't assign what the input block returns to any variable.
 
-If we click in Abort, the steps block of the stage with the input block will not be executed, and the whole pipeline will be "Aborted". The rest of the stages it may have will be skipped. However, the post step will still be run, so we can put on it any notification or clean up job. In the example, we run the post block <code>always</code>, ie. <u>whatever</u> the outcome of the pipeline is (FAILURE, SUCCESS etc).
+If we click in Abort, the steps block of the stage with the input block will not be executed, and the whole pipeline will be "Aborted". The rest of the stages it may have will be skipped. However, the post step will still be run, so we can put on it any notification or clean up job. In the example, we run the post block <code>always</code>, ie. <u>whatever</u> the outcome of the pipeline is (FAILURE, SUCCESS etc). In the post bloc we could have a clean up step/stage? which always run, and a notification step/stage ? that only runs if the build fails.
 
 ![image info](./pictures/input_step.png)
 
+A pipeline is only the structure for modeling our build workflow. For the actual mechanics of the build, we'll still need to use our common build tools, such as Maven, either through shell steps or through plugins. 
+
+Other than echo and sh, other common steps are retry and timeout. Everything else come from plugins. Plugins that are pipeline compatible are steps that we can use in our stages, such as junit, unzip, kubernatesDeploy etc. <b>Plugins</b> in Jenkins will give a myriad of possibilities, in the same fashion of Ansible plugins. See course Using and Managing Jenkins Plugins, in pluralsight.
+
+
+
 
 ## Running stages in parallel
-We can nest stages inside another stage and run them in parallel, potentially on different agent, which is a big performance boost. These nested stages will need to be inside a parallel{...} block. In the example bellow all the parallel stages run on the same (unique) agent.
-
-
-```Jenkinsfile
+We can nest stages inside another stage and run them in parallel, potentially on different agent, which is a big performance boost. These nested stages will need to be inside a <code>parallel{...}</code> block. In the example bellow all the parallel stages run on the same (unique) agent, in parallel. 
+```groovy
 pipeline {
     agent any
     environment {
@@ -220,3 +224,5 @@ pipeline {
     }
 }
 ```
+
+(2) start 8.45
