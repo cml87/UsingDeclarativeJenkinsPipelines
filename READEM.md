@@ -242,14 +242,14 @@ pipeline {
                echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
             }
         }
-        stage('Test') {
+      stage('Test') {
+            environment {
+               FILE_CONTENT = "This is the content I want to write in the file.\n" +
+                                "It is a very important content as you can see."
+            }
             steps {
                echo "Testing release ${RELEASE}"
-               String fileContent;
-               fileContent = "This is the content I want to write in the file.\n" +
-                             "It is a very important content as you can see."  
-               
-               writeFile file: 'test-results.txt', text: "$fileContent"               
+               writeFile file: 'test-results.txt', text: "${FILE_CONTENT}"               
             }
         }
    }
