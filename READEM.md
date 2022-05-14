@@ -261,4 +261,6 @@ pipeline {
 }
 ```
 
+Where the "archives" are stored? Are they stored permanently? What if I clean my Workspace at the end of the job?
+
 (2) start 8.45
