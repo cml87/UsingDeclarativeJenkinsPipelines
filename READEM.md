@@ -225,4 +225,40 @@ pipeline {
 }
 ```
 
+The following Jenkinsfile illustrate other core steps in a Jenkins file.
+
+```groovy
+pipeline {
+    agent any
+    environment {
+      RELEASE='20.04'
+    }
+   stages {
+      stage('Build') {
+            environment {
+               LOG_LEVEL='INFO'
+            }
+            steps {
+               echo "Building release ${RELEASE} with log level ${LOG_LEVEL}..."
+            }
+        }
+        stage('Test') {
+            steps {
+               echo "Testing release ${RELEASE}"
+               String fileContent;
+               fileContent = "This is the content I want to write in the file.\n" +
+                             "It is a very important content as you can see."  
+               
+               writeFile file: 'test-results.txt', text: "$fileContent"               
+            }
+        }
+   }
+   post {
+      success {
+         archiveArtifacts 'test-results.txt'
+      }
+   }
+}
+```
+
 (2) start 8.45
