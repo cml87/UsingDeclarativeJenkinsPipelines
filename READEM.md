@@ -260,6 +260,22 @@ pipeline {
    }
 }
 ```
+For a given project Jenkins stores data in the file system under the ~/jobs and ~/workspace directories ..
+
+For any project, eg. a pipeline project, Jenkins store data for the current build and for each of the past builds. Data for the current build is stored in the "workspace"  in the file system of the node running the job I think. For example
+
+~/workspace/...
+/var/jenkins_home/workspace/UsingDeclarativeJenkinsPipelines/demo3-1/
+
+The workspace will have what was checked out from the remote git repository as well as any other file generated in the build.
+
+~/jobs/...
+~/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds
+
+Data "archived" for each build will be in:
+
+/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds
+
 
 Where the "archives" are stored? Are they stored permanently? What if I clean my Workspace at the end of the job?
 
