@@ -262,6 +262,17 @@ pipeline {
 ```
 For a given project Jenkins stores data in the file system under the ~/jobs and ~/workspace directories ..
 
+jenkins@ccba87f915e5:~/workspace$ cd ..
+jenkins@ccba87f915e5:~$ find . -name test-results.txt
+./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/7/archive/test-results.txt
+./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/9/archive/test-results.txt
+./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/1/archive/test-results.txt
+./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/2/archive/test-results.txt
+./workspace/UsingDeclarativeJenkinsPipelines/demo3-1/test-results.txt
+jenkins@ccba87f915e5:~$ 
+
+
+
 For any project, eg. a pipeline project, Jenkins store data for the current build and for each of the past builds. Data for the current build is stored in the "workspace"  in the file system of the node running the job I think. For example
 
 ~/workspace/...
