@@ -25,7 +25,8 @@ pipeline {
             }
         }
    }
-   post {
+   
+   post { // chenge to send me an email to gambarimas !!!
       success {
          archiveArtifacts 'test-results.txt'
          slackSend channel: '#builds',
