@@ -340,4 +340,5 @@ $ find . -name test-results.txt
 ./workspace/UsingDeclarativeJenkinsPipelines/demo3-1/test-results.txt
 ```
 
+The write and archive steps are part of the Pipeline plugin.
 (2) start 8.45
