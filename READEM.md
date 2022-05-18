@@ -273,7 +273,7 @@ total 40K
 drwxr-xr-x  3 jenkins jenkins 4.0K Apr 29 11:28 test
 drwxr-xr-x  3 jenkins jenkins 4.0K May 12 07:15 UsingDeclarativeJenkinsPipelines
 ```
-Data for the current build is stored in the "workspace" directory. For example:
+The workspace will have what was checked out from the remote git repository as well as any other file generated in the current build. For example:
 ```bash
 ~/workspace/UsingDeclarativeJenkinsPipelines/demo3-1$ ls -larth
 total 40K
@@ -329,36 +329,15 @@ total 12K
 -rw-r--r-- 1 jenkins jenkins   95 May 14 20:58 test-results.txt
 ```
 
-
-
-
-
-jenkins@ccba87f915e5:~/workspace$ cd ..
-jenkins@ccba87f915e5:~$ find . -name test-results.txt
+If our pipeline "archives" something, as the last Jenkinsfile shown does, eg. a file <code>test-results.txt</code>, that file will be found in the archive directory of each build that created it, and also in the workspace directory, if the current build created it as well:
+```bash
+$ cd ~
+$ find . -name test-results.txt
 ./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/7/archive/test-results.txt
 ./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/9/archive/test-results.txt
 ./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/1/archive/test-results.txt
 ./jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds/2/archive/test-results.txt
 ./workspace/UsingDeclarativeJenkinsPipelines/demo3-1/test-results.txt
-jenkins@ccba87f915e5:~$ 
-
-
-
-For any project, eg. a pipeline project, Jenkins store data for the current build and for each of the past builds. Data for the current build is stored in the "workspace"  in the file system of the node running the job I think. For example
-
-~/workspace/...
-/var/jenkins_home/workspace/UsingDeclarativeJenkinsPipelines/demo3-1/
-
-The workspace will have what was checked out from the remote git repository as well as any other file generated in the build.
-
-~/jobs/...
-~/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds
-
-Data "archived" for each build will be in:
-
-/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1/builds
-
-
-Where the "archives" are stored? Are they stored permanently? What if I clean my Workspace at the end of the job?
+```
 
 (2) start 8.45
