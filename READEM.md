@@ -260,7 +260,78 @@ pipeline {
    }
 }
 ```
-For a given project Jenkins stores data in the file system under the ~/jobs and ~/workspace directories ..
+The Jenkins home is usually ~ = /var/jenkins_home. For a given project Jenkins stores data in the file system under the <code>~/jobs</code> and <code>~/workspace</code> directories.
+```bash
+~/workspace$ ls -larth ~/workspace/
+total 76K
+drwxr-xr-x  7 jenkins jenkins 4.0K Apr 28 18:56 test
+drwxr-xr-x  8 jenkins jenkins 4.0K May 14 20:44 UsingDeclarativeJenkinsPipelines
+```
+```bash
+$ ls -larth ~/jobs
+total 40K
+drwxr-xr-x  3 jenkins jenkins 4.0K Apr 29 11:28 test
+drwxr-xr-x  3 jenkins jenkins 4.0K May 12 07:15 UsingDeclarativeJenkinsPipelines
+```
+Data for the current build is stored in the "workspace" directory. For example:
+```bash
+~/workspace/UsingDeclarativeJenkinsPipelines/demo3-1$ ls -larth
+total 40K
+drwxr-xr-x 8 jenkins jenkins 4.0K May 14 20:44 ..
+drwxr-xr-x 5 jenkins jenkins 4.0K May 14 20:44 course_materials
+drwxr-xr-x 2 jenkins jenkins 4.0K May 14 20:44 pictures
+drwxr-xr-x 4 jenkins jenkins 4.0K May 14 20:44 m2
+-rw-r--r-- 1 jenkins jenkins 9.8K May 14 20:58 READEM.md
+drwxr-xr-x 8 jenkins jenkins 4.0K May 14 20:58 .git
+drwxr-xr-x 6 jenkins jenkins 4.0K May 14 20:58 .
+-rw-r--r-- 1 jenkins jenkins   95 May 14 20:58 test-results.txt
+```
+This is a pipeline project called "demo3-1" placed inside a Jenkins GUI folder "UsingDeclarativeJenkinsPipelines".
+
+Inside the jobs directory instead we have the configuration file <code>config.xml</code> for the project, as well as permanently, I think, files stored for each build of our project, under the <code>build</code> directory. For example: 
+```bash
+~/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1$ ls -larth
+total 20K
+drwxr-xr-x  9 jenkins jenkins 4.0K May 14 20:30 ..
+-rw-r--r--  1 jenkins jenkins 1.6K May 14 20:30 config.xml
+-rw-r--r--  1 jenkins jenkins    3 May 14 20:58 nextBuildNumber
+drwxr-xr-x  3 jenkins jenkins 4.0K May 14 20:58 .
+drwxr-xr-x 11 jenkins jenkins 4.0K May 14 20:58 builds
+```
+```bash
+~/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1$ ls -larth builds/
+total 48K
+drwxr-xr-x  4 jenkins jenkins 4.0K May 14 20:44 1
+drwxr-xr-x  4 jenkins jenkins 4.0K May 14 20:47 2
+drwxr-xr-x  2 jenkins jenkins 4.0K May 14 20:47 3
+drwxr-xr-x  2 jenkins jenkins 4.0K May 14 20:48 4
+drwxr-xr-x  3 jenkins jenkins 4.0K May 14 20:50 5
+drwxr-xr-x  3 jenkins jenkins 4.0K May 14 20:51 6
+drwxr-xr-x  4 jenkins jenkins 4.0K May 14 20:52 7
+drwxr-xr-x  2 jenkins jenkins 4.0K May 14 20:57 8
+drwxr-xr-x  4 jenkins jenkins 4.0K May 14 20:58 9
+```
+```bash
+~/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1$ ls -larth builds/9/
+total 56K
+-rw-r--r--  1 jenkins jenkins  536 May 14 20:58 changelog5295595542662310757.xml
+drwxr-xr-x  2 jenkins jenkins 4.0K May 14 20:58 archive
+-rw-r--r--  1 jenkins jenkins   65 May 14 20:58 log-index
+drwxr-xr-x  2 jenkins jenkins 4.0K May 14 20:58 workflow
+-rw-r--r--  1 jenkins jenkins  15K May 14 20:58 log
+drwxr-xr-x 11 jenkins jenkins 4.0K May 14 20:58 ..
+-rw-r--r--  1 jenkins jenkins  15K May 14 20:58 build.xml
+drwxr-xr-x  4 jenkins jenkins 4.0K May 14 20:58 .
+```
+```bash
+~/jobs/UsingDeclarativeJenkinsPipelines/jobs/demo3-1$ ls -larth builds/9/archive
+total 12K
+-rw-r--r-- 1 jenkins jenkins   95 May 14 20:58 test-results.txt
+```
+
+
+
+
 
 jenkins@ccba87f915e5:~/workspace$ cd ..
 jenkins@ccba87f915e5:~$ find . -name test-results.txt
