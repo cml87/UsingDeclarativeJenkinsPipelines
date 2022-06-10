@@ -350,11 +350,11 @@ Plugins usually make available more steps.
 
 We use credential to log to remote application or services and use them. For example AWS cloud or Github (eg. a github token). In Jenkins credentials are globally managed, ie. they can be used through Jenkins everywhere of inside pipeline projects. Normally the administrator user of the control node (I think) will have access to all credential. Other users will be granted different type of access to the credentials by the administrator. If nothing is configured, all user will get all type of access to credentials. The administrator configure these accesses under Dashboard/Configure Global Security/Authorization.
 
-There are 5 types of credentials in Jenkins:
-1. Secret text, eg. a Github api token, of cloud api token. These tokens are stored in the form of secret texts.
-2. Username/Password: stored in the form of username:password, for any application.
-3. Secret file or secret text stored in a file
-4. ssh private and public key, for example to have access to a SCM system.
+Plugins are types of credentials to Jenkins. Common type of credentials are:
+1. Username with password: stored in the form of username:password, for any application.
+2. SSH Username with private key, for example to have access to a SCM system.
+3. Secret file ? or secret text stored in a file
+4. Secret text, eg. a Github api token, of cloud api token. These tokens are stored in the form of secret texts.
 5. Certificate ?
 
 Credentials are all stored encrypted in the master node and are referenced by its Id, eg
@@ -365,5 +365,9 @@ environment {
 }
 ```
 
+Learn more about jenkins credentials
+
+
+use "def" for scripted pipelines. 
 
 (2) start 8.45
